@@ -1,2 +1,6 @@
 # Peddie-Cost-Transparency-Project
 Project to raise awareness on hidden expenses and available resources at Peddie 
+
+Design Doc: https://docs.google.com/document/d/1jhzdV88q_asSJrpEdPiLgNx8DmateM0ZbpE1u_2G7-s/edit
+
+The Problem: K-12 independent schools are currently unable to quantify an enrolled student’s total cost of attendance at their institutions. Independent schools charge a premium price with the assurance of a quality educational experience through their tuition costs while having limited knowledge of their customers’ additional expenses. Unanticipated costs beyond tuition may cause students to opt out of critical educational experiences. These moments of repeated opt-outs can lead to inequities within a school community and push students to the edges away from their peers until they no longer feel as though they can connect and belong. When unanticipated costs translate to required additional expenses for a student to fully participate and engage with their learning community, enrolled households face the challenge of re-evaluating the value proposition of their school choice with each updated expense. These re-evaluations are not only costly for enrolled households but for K-12 schools that continue to experience the following critical pain points: increased tuition rates and decreased enrollment retention rates. 

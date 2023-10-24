@@ -1,0 +1,83 @@
+p{
+    font-size: 20px;
+}
+
+
+.column-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 2%;
+}
+
+
+.column {
+    margin: auto; 
+    width: 20%; 
+    height: 50px;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: row;
+    display:inline-block;
+    justify-content: center; /* space-between; */
+    align-items: center;
+    align-content: center;
+    text-align: center;
+     /*  Center horizontally using margin */
+
+}
+#column_Instruction {
+    background-color: #ffffff;  
+    border-top: #000;
+    width:200px;
+  }
+
+#column_all_Classes {
+  background-color: #ffffff;
+  border-bottom: #000;
+}
+
+#column_selected_Classes {
+    background-color: #ffffff;
+    
+  }
+  
+#column_Costs {
+    background-color: #ffffff;
+}
+
+#column_Resources {
+    background-color: #ffffff;
+}
+
+.rectangle {
+  width: 800px;
+  height: 80px;
+  background-color: #ffffff; /* White background color */
+  text-align: center;
+  margin: 0 auto; /* Center horizontally using margin */
+  line-height: 100px; /* Center text vertically */
+  border: 1px solid #000; /* Optional border for the rectangle */
+  font-size: 48px; 
+}
+
+.clear_rectangle {
+  width: 100%;
+  height: 800%;
+  background-color: #fbfbfb; /* White background color */
+  text-align: center;
+  margin: 0 auto; /* Center horizontally using margin */
+  line-height: 100px; /* Center text vertically */
+  border: 3px solid #000; /* Optional border for the rectangle */
+  font-size: 48px; 
+}
+
+.custom-button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}

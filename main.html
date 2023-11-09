@@ -9,6 +9,29 @@
     <script type="module" src="client.js"></script>
     <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/csv-parse/lib/es5/index.js"></script> -->
 
+    <script>  
+    
+    function filterClasses() {
+        console.log("FILTERING CLASSES")
+        const input = document.querySelector("input[type='text']");
+        const filter = input.value.toLowerCase();
+        const ul = document.getElementById("classesList");
+        const li = ul.getElementsByTagName("li");
+    
+        for (let i = 0; i < li.length; i++) {
+            let label = li[i].getElementsByTagName("label")[0];
+            let txtValue = label.textContent || label.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    </script> 
+
+
 
     
 
@@ -30,7 +53,7 @@
             
             <h2>Instructions</h2>
             <p>Click the classes you are interested in, using the scroll bar or search bar. 
-                Costs and available resources will show up for each course you add.
+                Textbooks and their respective costs will show up for each course you add.
                 Click the link on the cost to buy the book. 
             </p>
             
@@ -46,7 +69,11 @@
 
                     <div>
                         Classes
-                        <input type="text" id="searchBar" oninput = "searchOptions()" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()">
+                        <!-- <input type="text" id="searchBar" oninput = "searchOptions()" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()"> -->
+                        <!-- <input type="text"  placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()"> -->
+                        <input type="text" id="searchBar" oninput="filterClasses()">
+
+
                         <ul class="classes-list" id="classesList">
                             
                         </ul>

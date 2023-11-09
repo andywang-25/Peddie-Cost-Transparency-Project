@@ -1,5 +1,8 @@
 
 
+
+
+  
 const textbookData = []; // Create an array to store book information
 const selectedCourses = new Set(); // Create a Set to store selected course names
 
@@ -28,7 +31,6 @@ fetch("./data/textbooks.csv")
                 });
                 // Now, you have an array containing book information for each book
                 console.log(textbookData);
-                alert("Book information is available. Check the console for details.");
                 // Call the function to generate the checklist after the data is loaded
                 generateChecklist();
             },
@@ -66,7 +68,7 @@ function generateChecklist() {
             const listItem = document.createElement('li');
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = item.courseName;
+            checkbox.id = item.courseName + " " + item.teachers;
             const label = document.createElement('label');
             label.htmlFor = item.courseName;
             label.textContent = `${item.courseName} (Teacher: ${item.teachers})`;
@@ -79,26 +81,23 @@ function generateChecklist() {
 
             // Add a click event to show associated textbooks and costs when the label is clicked
             label.addEventListener('click', () => {
-              if (selectedCourses.has(item.courseName)) {
+              if (selectedCourses.has(item.courseName + " " + item.teachers)) {
 
-                checkbox.checked = true; // Uncheck the checkbox
+                checkbox.checked = false; // Uncheck the checkbox
 
                 item.textbooks.forEach((textbook) => {
                     const textbookElement = document.createElement("div");
                     textbookElement.textContent = `Textbook: ${textbook.title} (Cost: $${textbook.price})`;
-                    handleCourseSelection(item.courseName, textbook.price, false); // Manually call unselect handler\
+                    handleCourseSelection(item.courseName + " " + item.teachers, textbook.price, false); // Manually call unselect handler\
                 }); 
 
             
               } else {
 
-
-                  clearRectangle.textContent = ''; // Clear the previous selection
-                  costsContainer.textContent = ''; // Clear the previous costs
-          
+                checkbox.checked = true;           
                   // Display the selected course in the "Selected Courses" column
                   const selectedCourseItem = document.createElement("div");
-                  selectedCourseItem.textContent = item.courseName;
+                  selectedCourseItem.textContent = item.courseName + " " + item.teachers;
                   selectedCourseItem.style.fontSize = "22px"; // Set the font size
                   clearRectangle.appendChild(selectedCourseItem);
           
@@ -107,17 +106,17 @@ function generateChecklist() {
                       const textbookElement = document.createElement("div");
                       textbookElement.textContent = `Textbook: ${textbook.title} (Cost: $${textbook.price})`;
                       textbookElement.style.fontSize = "18px"; // Set the font size
+                      
                       costsContainer.appendChild(textbookElement);
+                      console.log(costsContainer)
                   });
-          
                   // Add the selected course to the Set
-                  selectedCourses.add(item.courseName);
+                  selectedCourses.add(item.courseName + " " + item.teachers);
               }
           });
           
         }
     }
-    console.log(checlistItems)
 
 
     // function populateOptions(){
@@ -176,8 +175,6 @@ function generateChecklist() {
 
 
   function removeCost(price) {
-
-    console.log("removing the price right now, the price is: " + price)
     const costElements = costsContainer.querySelectorAll("div");
     costElements.forEach((element) => {
       if (element.textContent.includes(price)) {
@@ -185,10 +182,6 @@ function generateChecklist() {
         return;
       }
     });
-    // Ensure the costsContainer is not empty after removal
-    if (!costsContainer.textContent.trim()) {
-      costsContainer.textContent = ''; // Clear any remaining text
-    }
   }
 
   function extractCourseName(text) {
@@ -213,21 +206,13 @@ function generateChecklist() {
        selectedCourses.add(courseName);
      }
    } else { //else, if the user unclicks the selected course, we want to remove it from the selected courses and costs column
-    console.log("we are now beginning to move the class")
+
         removeSelectedClass(courseName);
         removeCost(price);
-
-        // Remove the selected course from the Set
         selectedCourses.delete(courseName);
 
    }
  }
 }
-
-
-
-
-  
-
 
 

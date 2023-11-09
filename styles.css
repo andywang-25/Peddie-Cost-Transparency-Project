@@ -82,6 +82,8 @@ ul {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  max-height : 475px;
+  overflow: auto
 }
 
 .search-container {
@@ -161,3 +163,5 @@ ul {
 #itemList li:hover {
   background-color: #f0f0f0;
 }
+
+

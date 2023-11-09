@@ -2,7 +2,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="styles.css">
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script type="module" src="server.js"></script>
+    <script type="module" src="client.js"></script>
+    <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/csv-parse/lib/es5/index.js"></script> -->
+
+
+    
 
 </head>
 <body>
@@ -35,6 +43,16 @@
 
             <div class="parent-container">
                 <div class="search-container">
+
+                    <div>
+                        Classes
+                        <input type="text" id="searchBar" oninput = "searchOptions()" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()">
+                        <ul class="classes-list" id="classesList">
+                            
+                        </ul>
+                    </div>
+
+                           <!--  
                     <div>
                         Classes
                         <input type="text" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()" >
@@ -61,6 +79,9 @@
                             <li><input type="checkbox" id="latin"><label for="latin">Latin</label></li>
                         </ul>
                     </div>
+                    -->
+
+                    
                 </div>                
             </div>
         </div>
@@ -70,15 +91,17 @@
             <div class="clear_rectangle">
                 <!-- This is where the selected classes will be displayed -->
             </div>
+
         </div>
+
+
 
         <div class="column", id="column_Costs">
             
             <h2>Costs</h2>
-            <div class="clear_rectangle",id="column_Costs">  <!--transparent rectangle-->
-                test
+            <div class="clear_rectangle">  <!--transparent rectangle-->
             </div>
-            
+
         </div>
         
         <!--

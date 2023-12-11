@@ -94,7 +94,7 @@ ul {
 }
 
 .clear_rectangle {
-  width: 400px;
+  width: 450px;
   height: 475px;
   background-color: transparent;
   text-align: center;
@@ -128,7 +128,7 @@ ul {
 }
 
 .search-container {
-  width: 400px;
+  width: 550px;
   margin: 0 auto;
   text-align: center;
 }
@@ -164,4 +164,36 @@ ul {
   background-color: #f0f0f0;
 }
 
+
+
+
+.english-department {
+  color: rgb(18, 130, 111); /* or any color/style you prefer for English department */
+  /* Add more CSS styles as needed */
+}
+
+.science-department {
+  color: green; /* or any color/style you prefer for Science department */
+  /* Add more CSS styles as needed */
+}
+.math-department {
+  color: rgb(146, 1, 1); /* or any color/style you prefer for English department */
+  /* Add more CSS styles as needed */
+}
+
+.language-department {
+  color: rgb(126, 0, 128); /* or any color/style you prefer for Science department */
+  /* Add more CSS styles as needed */
+}
+
+.history-department {
+  color: rgb(22, 53, 124); /* or any color/style you prefer for Science department */
+  /* Add more CSS styles as needed */
+}
+
+.totalCost {
+  position:absolute;
+  bottom:0;
+  right:0;
+}
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="main.js"></script>
+    <script type="module" src="textbooksPage.js"></script>
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script type="module" src="server.js"></script>
@@ -37,28 +37,22 @@
 
 </head>
 <body>
-    <!-- white box above the columns  -->
-    <div class="rectangle">
-        <button class="custom-button">Textbook Costs</button>
-        <button class="custom-button">Athletic Costs</button>
-        <button class="custom-button">Arts Costs</button>
-        
-    </div>
+    
+
+    <!-- Nav Bar -->
+    <nav class="navbar">
+        <a href="textbook.html">Textbook Costs</a>
+        <a href="athletics.html">Athletics Costs</a>
+    </nav>
+
+
+  
 
 
 
     <div class="column-container">
 
-        <!-- <div class="column", id="column_Instruction">
-            
-            <h2>Instructions</h2>
-            <p>Click the classes you are interested in, using the scroll bar or search bar. 
-                Textbooks and their respective costs will show up for each course you add.
-                Click the link on the cost to buy the book. 
-            </p>
-            
 
-        </div> -->
 
         <div class="column", id="column_all_Classes">
             
@@ -69,45 +63,12 @@
 
                     <div>
                         Classes
-                        <!-- <input type="text" id="searchBar" oninput = "searchOptions()" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()"> -->
-                        <!-- <input type="text"  placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()"> -->
                         <input type="text" id="searchBar" oninput="filterClasses()">
-
-
                         <ul class="classes-list" id="classesList">
-                            
                         </ul>
                     </div>
 
-                           <!--  
-                    <div>
-                        Classes
-                        <input type="text" placeholder="Search for a class..." onkeyup="filterClasses(); updateSelectedCourses()" >
-                        <ul class="classes-list" id="classesList">
-                            <li><input type="checkbox" id="algebra"><label for="algebra">Algebra</label></li>
-                            <li><input type="checkbox" id="geometry"><label for="geometry">Geometry</label></li>
-                            <li><input type="checkbox" id="calculus"><label for="calculus">Calculus</label></li>
-                            <li><input type="checkbox" id="physics"><label for="physics">Physics</label></li>
-                            <li><input type="checkbox" id="chemistry"><label for="chemistry">Chemistry</label></li>
-                            <li><input type="checkbox" id="biology"><label for="biology">Biology</label></li>
-                            <li><input type="checkbox" id="astronomy"><label for="astronomy">Astronomy</label></li>
-                            <li><input type="checkbox" id="earthScience"><label for="earthScience">Earth Science</label></li>
-                            <li><input type="checkbox" id="history"><label for="history">History</label></li>
-                            <li><input type="checkbox" id="geography"><label for="geography">Geography</label></li>
-                            <li><input type="checkbox" id="psychology"><label for="psychology">Psychology</label></li>
-                            <li><input type="checkbox" id="sociology"><label for="sociology">Sociology</label></li>
-                            <li><input type="checkbox" id="politicalScience"><label for="politicalScience">Political Science</label></li>
-                            <li><input type="checkbox" id="economics"><label for="economics">Economics</label></li>
-                            <li><input type="checkbox" id="literature"><label for="literature">Literature</label></li>
-                            <li><input type="checkbox" id="english"><label for="english">English</label></li>
-                            <li><input type="checkbox" id="spanish"><label for="spanish">Spanish</label></li>
-                            <li><input type="checkbox" id="french"><label for="french">French</label></li>
-                            <li><input type="checkbox" id="german"><label for="german">German</label></li>
-                            <li><input type="checkbox" id="latin"><label for="latin">Latin</label></li>
-                        </ul>
-                    </div>
-                    -->
-
+        
                     
                 </div>                
             </div>
@@ -116,50 +77,28 @@
         <div class="column" id="column_selected_Classes">
             <h2>Selected Courses</h2>
             <div class="clear_rectangle">
-                <!-- This is where the selected classes will be displayed -->
             </div>
 
         </div>
 
 
 
-        <div class="column", id="column_Costs">
-            
+        <div class="column" id="column_Costs">
             <h2>Costs</h2>
-            <div class="clear_rectangle">  <!--transparent rectangle-->
-            </div>
-
+            <div class="clear_rectangle"> <!-- transparent rectangle --> </div>
         </div>
         
-        <!--
-        <div class="column", id="column_Resources">
-            
-            <h2>Available Resources</h2>
-            <div class="clear_rectangle">  transparent rectangle
-                test
-            </div>
-        </div>
-        -->
-    </div>
+         
+
+
+
         
-        
-    <!--  
-    <div id="column_selected_classes" style="background-color: #2d1e8d;">
-        
-        <h2>Column 2</h2>
-        <p>This is the content for column 2.</p>
+    
     </div>
 
-    <div id="column_Costs" style="background-color: #19a914;">
-        
-        <h2>Column 3</h2>
-        <p>This is the content for column 3.</p>
-    </div>
 
-    <div id="column_Resources" style="background-color: #5d1212;">
         
-        <h2>Cotal Costs</h2>
-        <p>This is the content for column 3.</p>
-    </div>-->
+        
+   
 </body>
 </html>

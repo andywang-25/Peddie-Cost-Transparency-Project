@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="textbooksPage.js"></script>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script type="module" src="server.js"></script>
+    <script type="module" src="client.js"></script>
+    <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/csv-parse/lib/es5/index.js"></script> -->
+
+    <script>  
+    
+    function filterClasses() {
+        console.log("FILTERING CLASSES")
+        const input = document.querySelector("input[type='text']");
+        const filter = input.value.toLowerCase();
+        const ul = document.getElementById("classesList");
+        const li = ul.getElementsByTagName("li");
+    
+        for (let i = 0; i < li.length; i++) {
+            let label = li[i].getElementsByTagName("label")[0];
+            let txtValue = label.textContent || label.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    </script> 
+</head>
+<body>
+    
+
+    <!-- Nav Bar -->
+    <nav class="navbar">
+        <a href="textbook.html">Textbook Costs</a>
+        <a href="athletics.html">Athletics Costs</a>
+    </nav>
+
+
+
+    <div class="column-container">
+        <div class="column", id="column_all_Classes">
+            
+            <h2>All Courses</h2>
+
+            <div class="parent-container">
+                <div class="search-container">
+
+                    <div>
+                        Classes
+                        <input type="text" id="searchBar" oninput="filterClasses()">
+                        <ul class="classes-list" id="classesList">
+                        </ul>
+                    </div>
+                </div>                
+            </div>
+        </div>
+
+        <div class="column" id="column_selected_Classes">
+            <h2>Selected Courses</h2>
+            <div class="clear_rectangle">
+            </div>
+
+        </div>
+
+        <div class="column" id="column_Costs">
+            <h2>Costs</h2>
+            <div class="clear_rectangle"> <!-- transparent rectangle --> </div>
+        </div>
+        
+    </div>
+</body>
+</html>

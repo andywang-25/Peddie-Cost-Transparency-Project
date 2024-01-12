@@ -55,28 +55,7 @@ ul {
 #column_Resources {
     background-color: #ffffff;
 }
-/*
-.rectangle {
-  width: 800px;
-  height: 80px;
-  background-color: #ffffff; 
-  text-align: center;
-  margin: 0 auto; 
-  line-height: 100px; 
-  border: 1px solid #000;
-  font-size: 48px; 
-  align-items: center; 
 
-}
-.custom-button {
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  font-size: 24px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-*/
 .parent-container {
   display: flex;
   flex-direction: column;
@@ -168,26 +147,26 @@ ul {
 
 
 .english-department {
-  color: rgb(18, 130, 111); /* or any color/style you prefer for English department */
+  color: #2424FF /* or any color/style you prefer for English department */
   /* Add more CSS styles as needed */
 }
 
 .science-department {
-  color: green; /* or any color/style you prefer for Science department */
+  color: #0E5200; /* or any color/style you prefer for Science department */
   /* Add more CSS styles as needed */
 }
 .math-department {
-  color: rgb(146, 1, 1); /* or any color/style you prefer for English department */
+  color: #A81515; /* or any color/style you prefer for English department */
   /* Add more CSS styles as needed */
 }
 
 .language-department {
-  color: rgb(126, 0, 128); /* or any color/style you prefer for Science department */
+  color: #950C97; /* or any color/style you prefer for Science department */
   /* Add more CSS styles as needed */
 }
 
 .history-department {
-  color: rgb(22, 53, 124); /* or any color/style you prefer for Science department */
+  color: #8E3F15; /* or any color/style you prefer for Science department */
   /* Add more CSS styles as needed */
 }
 

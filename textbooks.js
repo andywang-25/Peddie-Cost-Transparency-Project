@@ -2,7 +2,6 @@
 const fs = require("fs");
 const { parse } = require("csv-parse");
 
-fs.createReadStream("./data/textbooks.csv");
 const textbookData = []; // textbook price bible (holds all textbook information)
 
 //reads into textbookData array

@@ -1,3 +1,13 @@
+fetch('http://localhost:3000/data')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Process and display your data
+  })
+  .catch(error => console.error('Error:', error));
+
+  
+
+
 //import commands
 const fs = require("fs");
 const { parse } = require("csv-parse");

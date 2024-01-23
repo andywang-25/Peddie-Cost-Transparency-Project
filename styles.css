@@ -189,3 +189,23 @@ ul {
   right:0;
 }
 
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 8px; /* Spacing inside cells */
+
+}
+
+.data-table th, .data-table td {
+  border: 1px solid black; /* Solid borders for cells */
+  padding: 8px; /* Spacing inside cells */
+  text-align: left;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Optional: Zebra striping for rows */
+}
+
+#dataContainer {
+  padding-top: 20px; /* Adjust the value as needed */
+}

@@ -40,7 +40,6 @@ fs.createReadStream("./data/textbooks.csv")
   }); 
 
 
-console.log("test");
 
 console.log("textbookData:", textbookData);
 

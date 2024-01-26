@@ -163,12 +163,7 @@ function generateChecklist() {
 
               if (selectedCourses.has(item.courseName + " " + item.teachers)) { //this is called when you are removing a class 
 
-                console.log("this checkbox is currently checked: " + checkbox.checked);
-
                 checkbox.checked = false; // Uncheck the checkbox
-
-                console.log("this checkbox is not checked anymore: " + checkbox.checked);
-
                
                 //removing english class 
                 if (item.department === 'English:') {

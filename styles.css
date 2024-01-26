@@ -206,6 +206,19 @@ ul {
   background-color: #f2f2f2; /* Optional: Zebra striping for rows */
 }
 
-#dataContainer {
-  padding-top: 20px; /* Adjust the value as needed */
+
+
+#dataContainer > div {
+  display: flex;
+  align-items: center;
+  padding-top: 10px; /* Adjust the value as needed */
+}
+
+#dataContainer label, #dataContainer input[type="checkbox"] {
+  margin-right: 10px; /* Add space between checkbox and label */
+}
+
+.costDiv {
+  margin-left: 20px; /* Space between label and cost div */
+  display: none; /* Initially hidden */
 }

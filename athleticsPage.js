@@ -1,9 +1,3 @@
-// // how to load in the SQL data
-// // 1. open command prompt, cd into my-node-project, and run "node app.js". This command connects to the SQL database (needs to be running) from your computer 
-// // 2. run this code, code below takes the data from your computer (that was retrieved with the app.js code) and displays it onto the HTML website
-
-
-
 fetch('http://localhost:3000/data')
   .then(response => response.json())
   .then(data => {
@@ -14,62 +8,51 @@ fetch('http://localhost:3000/data')
       return;
     }
 
-    if (data.length === 0) {
-      console.log('No data received');
-      return;
-    }
-
-    // Create a table element
-    const table = document.createElement("table");
-    table.className = 'data-table';
-
-    // Create the table header
-    const thead = document.createElement("thead");
-    const headerRow = thead.insertRow();
-    Object.keys(data[0]).forEach(key => {
-      const th = document.createElement("th");
-      th.textContent = key;
-      headerRow.appendChild(th);
-    });
-    // Add a header for the total cost column
-    const totalCostHeader = document.createElement("th");
-    totalCostHeader.textContent = "Total Cost";
-    headerRow.appendChild(totalCostHeader);
-    
-    table.appendChild(thead);
-
-    // Create the table body with fetched data
-    const tbody = document.createElement("tbody");
+    // Create the "Total Costs" container
+    const totalCostsContainer = document.createElement("div");
+    totalCostsContainer.id = "totalCostsContainer";
+    dataContainer.appendChild(totalCostsContainer);
 
     data.forEach(item => {
-      const row = tbody.insertRow();
-      let totalCost = 0;
+      // Create a container for each sport
+      const sportContainer = document.createElement("div");
+      sportContainer.style.display = "flex";
+      sportContainer.style.alignItems = "center";
+      sportContainer.style.marginBottom = "10px";
 
-      Object.values(item).forEach((text, index) => {
-        const cell = row.insertCell();
-        cell.textContent = text;
+      // Create a checkbox for each sport
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = item.Sport; // Assuming 'Sport' is a property in your data
 
-           // Check if the cell is empty and set it to '0'
-        if (text === '' || text == null) {
-          cell.textContent = '0';
+      // Create a label for the checkbox
+      const label = document.createElement("label");
+      label.htmlFor = item.Sport;
+      label.textContent = item.Sport;
+
+      // Event listener for the checkbox
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          totalCostsContainer.innerHTML = ''; // Clear previous content
+          Object.entries(item).forEach(([key, value]) => {
+            if (key !== 'Sport') { // Assuming 'Sport' is the key for the sport name
+              const p = document.createElement("p");
+              p.textContent = `${key}: ${value}`;
+              totalCostsContainer.appendChild(p);
+            }
+          });
         } else {
-          cell.textContent = text;
-        }
-
-
-        // Sum numeric values, skipping the first column (Sport Name)
-        if (index > 0) {
-          totalCost += parseFloat(text) || 0;
+          // Clear the "Total Costs" container if the checkbox is unchecked
+          totalCostsContainer.innerHTML = '';
         }
       });
 
-      // Add a cell for the total cost
-      const totalCell = row.insertCell();
-      totalCell.textContent = totalCost.toFixed(2); // Formats the total cost to 2 decimal places
+      // Append checkbox and label to the sport container
+      sportContainer.appendChild(checkbox);
+      sportContainer.appendChild(label);
+
+      // Append the sport container to the data container
+      dataContainer.appendChild(sportContainer);
     });
-
-    table.appendChild(tbody);
-
-    dataContainer.appendChild(table);
   })
   .catch(error => console.error('Error:', error));

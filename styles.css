@@ -207,16 +207,34 @@ ul {
 }
 
 
-
-#dataContainer > div {
+/* Ensure the container for each sport has a fixed size */
+#dataContainer > div, #totalCostsContainer > div {
   display: flex;
   align-items: center;
-  padding-top: 10px; /* Adjust the value as needed */
+  justify-content: flex-start; /* Align items to the start */
+  margin-bottom: 10px;
+  width: 100%; /* Adjust based on your layout */
 }
 
 #dataContainer label, #dataContainer input[type="checkbox"] {
   margin-right: 10px; /* Add space between checkbox and label */
 }
+
+/* Prevent flex items from growing or shrinking */
+#dataContainer div, #totalCostsContainer div {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+/* Optional: Assign fixed width to labels and checkboxes to ensure uniformity */
+#dataContainer label {
+  flex-basis: 150px; /* Adjust based on your content */
+}
+
+#dataContainer input[type="checkbox"] {
+  flex-basis: 20px; /* Checkbox width */
+}
+
 
 .costDiv {
   margin-left: 20px; /* Space between label and cost div */

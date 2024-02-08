@@ -189,7 +189,13 @@ ul {
   right:0;
 }
 
-.data-table {
+
+.costDiv {
+  margin-left: 20px; /* Space between label and cost div */
+  display: none; /* Initially hidden */
+}
+
+ .data-table {
   border-collapse: collapse;
   width: 100%;
   padding: 8px; /* Spacing inside cells */
@@ -200,6 +206,8 @@ ul {
   border: 1px solid black; /* Solid borders for cells */
   padding: 8px; /* Spacing inside cells */
   text-align: left;
+  color: #382e29; /* or any color/style you prefer for Science department */
+
 }
 
 .data-table tr:nth-child(even) {
@@ -235,8 +243,11 @@ ul {
   flex-basis: 20px; /* Checkbox width */
 }
 
-
-.costDiv {
-  margin-left: 20px; /* Space between label and cost div */
-  display: none; /* Initially hidden */
+#overallTotalCost {
+  font-size: 20px; /* Adjust the font size as needed */
+  color: #007bff; /* Set the text color; using a Bootstrap primary color as an example */
+  margin-top: 10px; /* Adds some space above the total cost display */
+  font-weight: bold; /* Makes the text bold */
 }
+
+ 

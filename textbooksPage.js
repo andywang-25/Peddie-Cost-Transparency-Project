@@ -42,9 +42,7 @@ fetch("./data/textbooks.csv")
                   
                     textbookData.push(bookInfo);
                 });
-                // Now, you have an array containing book information for each book
                 console.log(textbookData);
-                alert("Book information is available. Check the console for details.");
                 // Call the function to generate the checklist after the data is loaded
                 generateChecklist();
             },

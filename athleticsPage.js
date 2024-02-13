@@ -9,6 +9,11 @@ fetch('http://localhost:3000/data')
     return;
   }
 
+  const globalNumber = localStorage.getItem('globalNumber');
+
+  // Use it as needed
+  console.log(globalNumber); // Outputs: 123
+
   function updateOverallTotalCost() {
     let overallTotal = 0; // Initialize the sum of all total costs
     const rows = tbody.getElementsByTagName('tr');

@@ -4,7 +4,11 @@ let english = false;
 let totalCost = 0;
 let test = false; 
 
+localStorage.setItem('globalCost', '0'); // Create global variable tracking total cost of textbooks and athletics 
+
+
 fetch("./data/textbooks.csv")
+
     .then((response) => response.text())
     .then((data) => {
         Papa.parse(data, {
@@ -158,6 +162,8 @@ function generateChecklist() {
             
             // Add a click event to show associated textbooks and costs when the label is clicked
             function handleClassSelection(checkbox, item) {
+              let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
+              console.log("upon click: " + globalCost);
 
               if (selectedCourses.has(item.courseName + " " + item.teachers)) { //this is called when you are removing a class 
 
@@ -300,18 +306,6 @@ function generateChecklist() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   function clearRectangleContains(text) {
     let children = clearRectangle.children;
     for (let i = 0; i < children.length; i++) {
@@ -328,6 +322,7 @@ function generateChecklist() {
     for (let i = 0; i < children.length; i++) {
       if (extractCourseName(children[i].textContent) === courseName) {
         clearRectangle.removeChild(children[i]);
+        
         return;
       }
     }
@@ -336,12 +331,11 @@ function generateChecklist() {
 
   function removeCost(price,title) {
     const costElements = costsContainer.querySelectorAll("div");
-    console.log("name of removing title: " + title)
-    console.log("cost elements:" + price)
     let flag = true; 
     costElements.forEach((element) => {
       if (element.textContent.includes(price) && element.textContent.includes(title) && flag) {
         costsContainer.removeChild(element);
+      
         flag = false; 
         return;
       }
@@ -358,7 +352,6 @@ function generateChecklist() {
   function handleCourseSelection(courseName, price, isChecked, title) {
         removeSelectedClass(courseName);
         console.log("here is the price we are passing: " + price)
-
         console.log("here is the title we are passing: " + title)
         removeCost(price, title);
         selectedCourses.delete(courseName);
@@ -378,11 +371,25 @@ function filterClassesByDepartment(department) {
 function alterTotalCost(textbookPrice,isAdd){
   if(isAdd) {
     totalCost = totalCost + textbookPrice; 
+    alterGlobalCost(textbookPrice, true);
   }
   else{
     totalCost = totalCost - textbookPrice;
+    alterGlobalCost(textbookPrice, false);
   }
   console.log("Total Cost:" + totalCost)
+}
+
+function alterGlobalCost(addedCost,isAdd) {
+  var currentNumber = Number(localStorage.getItem('globalCost'));
+
+  if (isAdd) {
+    var updatedNumber = currentNumber + addedCost;
+  }
+  else 
+    var updatedNumber = currentNumber - addedCost;
+
+  localStorage.setItem('globalCost', updatedNumber.toString());
 }
 }
           

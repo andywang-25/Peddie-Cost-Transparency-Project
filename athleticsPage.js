@@ -9,10 +9,8 @@ fetch('http://localhost:3000/data')
     return;
   }
 
-  const globalNumber = localStorage.getItem('globalNumber');
 
   // Use it as needed
-  console.log(globalNumber); // Outputs: 123
 
   function updateOverallTotalCost() {
     let overallTotal = 0; // Initialize the sum of all total costs
@@ -116,6 +114,9 @@ fetch('http://localhost:3000/data')
           tr.appendChild(totalCostTd);
 
           tbody.appendChild(tr);
+          let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
+          console.log("upon click: " + globalCost);
+          
         } else {
           // Show the existing row if it was previously hidden
           existingRow.style.display = "";

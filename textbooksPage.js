@@ -4,6 +4,7 @@ let english = false;
 let totalCost = 0;
 let test = false; 
 
+
 localStorage.setItem('globalCost', '0'); // Create global variable tracking total cost of textbooks and athletics 
 
 
@@ -59,6 +60,7 @@ function generateChecklist() {
   const classesList = document.getElementById('classesList');
   const clearRectangle = document.querySelector("#column_selected_Classes .clear_rectangle");
   const costsContainer = document.querySelector("#column_Costs .clear_rectangle");
+  const globalCostsContainer = document.getElementById("globalCostContainer");
 
 
     // Create a dictionary to store checklist items by course and teacher
@@ -162,8 +164,8 @@ function generateChecklist() {
             
             // Add a click event to show associated textbooks and costs when the label is clicked
             function handleClassSelection(checkbox, item) {
-              let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
-              console.log("upon click: " + globalCost);
+              
+              
 
               if (selectedCourses.has(item.courseName + " " + item.teachers)) { //this is called when you are removing a class 
 
@@ -181,11 +183,17 @@ function generateChecklist() {
                     textbookElement.textContent = `${textbook.title} (Cost: $${textbook.price})`;
                     handleCourseSelection(item.courseName + " " + item.teachers, textbook.price, false, textbook.title); // Manually call unselect handler
                     alterTotalCost(parseFloat(textbook.price),false);
+
+                    let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
+                    console.log("GLOBAL COST: " + globalCost);
                     
                     console.log("Total cost after removing course:" + totalCost)
 
                     // Update (or set) total cost text
                     totalCostElement.textContent = `Total Cost: ${totalCost.toFixed(2)}`;
+
+                    globalCostsElement.textContent = 'TEST TEST TEST ';
+                    
 
                     // After the loop, update totalCostElement text
                     totalCostElement.style.position = 'absolute';
@@ -196,6 +204,8 @@ function generateChecklist() {
                     // Append the totalCostElement to the costsContainer
                     costsContainer.appendChild(totalCostElement);
                     costsContainer.style.position = 'relative';
+
+                    globalCostsContainer.appendChild(globalCostsElement);
                 });
               }
               
@@ -239,6 +249,9 @@ function generateChecklist() {
                   priceElement.textContent = `$${textbook.price}`;
 
                   alterTotalCost(parseFloat(textbook.price),true);
+
+                  let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
+                  console.log("GLOBAL COST: " + globalCost);
             
                   console.log("total Cost:" + totalCost);
 

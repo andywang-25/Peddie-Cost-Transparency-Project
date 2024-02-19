@@ -1,8 +1,3 @@
-
-
-
-
-  
 const textbookData = []; // Create an array to store book information
 const selectedCourses = new Set(); // Create a Set to store selected course names
 let english = false; 
@@ -49,7 +44,6 @@ fetch("./data/textbooks.csv")
                 });
                 // Now, you have an array containing book information for each book
                 console.log(textbookData);
-                alert("Book information is available. Check the console for details.");
                 // Call the function to generate the checklist after the data is loaded
                 generateChecklist();
             },
@@ -62,6 +56,8 @@ function generateChecklist() {
   const classesList = document.getElementById('classesList');
   const clearRectangle = document.querySelector("#column_selected_Classes .clear_rectangle");
   const costsContainer = document.querySelector("#column_Costs .clear_rectangle");
+  updateGlobalCostDisplay(); // Make sure this function updates the UI to reflect the new globalCost
+
 
 
     // Create a dictionary to store checklist items by course and teacher
@@ -333,6 +329,13 @@ function generateChecklist() {
      }
      return false;
    }
+
+        // Update the globalCostContainer with the current global cost
+  function updateGlobalCostDisplay() {
+    const globalCostContainer = document.getElementById('globalCostContainer');
+    const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
+    globalCostContainer.textContent = `Global Cost: $${globalCost}`;
+  }
    
 
   function removeSelectedClass(courseName) {
@@ -367,14 +370,36 @@ function generateChecklist() {
         return match ? match[1] : text;
       }
 
-  function handleCourseSelection(courseName, price, isChecked, title) {
-        removeSelectedClass(courseName);
-        console.log("here is the price we are passing: " + price)
+  // Initialize globalCost from localStorage or default to 0
+let globalCost = parseFloat(localStorage.getItem('globalCost') || '0');
 
-        console.log("here is the title we are passing: " + title)
-        removeCost(price, title);
-        selectedCourses.delete(courseName);
- }
+// Update the globalCost whenever totalCost changes
+function updateGlobalCost() {
+    localStorage.setItem('globalCost', totalCost.toFixed(2));
+    globalCost = totalCost;
+}
+
+// Function to update total cost and global cost display
+function updateCostDisplay() {
+    // Update total cost display
+    const totalCostElement = document.getElementById('totalCostElement');
+    totalCostElement.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
+
+    // Update global cost display
+    const globalCostContainer = document.getElementById('globalCostContainer');
+    globalCostContainer.textContent = `Global Cost: $${globalCost.toFixed(2)}`;
+}
+
+// Function to handle course selection
+function handleCourseSelection(courseName, price, isChecked, title) {
+    removeSelectedClass(courseName);
+    removeCost(price, title);
+    selectedCourses.delete(courseName);
+    updateGlobalCost();
+    updateCostDisplay();
+}
+
+
    // 4. Filter Classes by Department
 function filterClassesByDepartment(department) {
   const allClassItems = document.querySelectorAll('#classesList li');
@@ -387,14 +412,21 @@ function filterClassesByDepartment(department) {
       }
   });
 }
-function alterTotalCost(textbookPrice,isAdd){
-  if(isAdd) {
-    totalCost = totalCost + textbookPrice; 
+function alterTotalCost(textbookPrice, isAdd) {
+  if (isAdd) {
+    totalCost += textbookPrice;
+  } else {
+    totalCost -= textbookPrice;
   }
-  else{
-    totalCost = totalCost - textbookPrice;
-  }
-  console.log("Total Cost:" + totalCost)
+  // Update globalCost here to reflect the change in totalCost
+  globalCost = parseFloat(localStorage.getItem('globalCost') || '0') + (isAdd ? textbookPrice : -textbookPrice);
+  localStorage.setItem('globalCost', globalCost.toFixed(2)); // Save updated globalCost to localStorage
+
+  console.log("Total Cost:" + totalCost);
+  console.log("Global Cost:" + globalCost); // Debugging
+
+  updateGlobalCostDisplay(); // Make sure this function updates the UI to reflect the new globalCost
 }
+
 }
         

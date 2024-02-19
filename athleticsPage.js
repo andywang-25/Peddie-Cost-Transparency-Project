@@ -134,5 +134,30 @@ fetch('http://localhost:3000/data')
     sportContainer.appendChild(label);
     dataContainer.appendChild(sportContainer);
   });
+
+  displayGlobalCost();
+
 })
 .catch(error => console.error('Error:', error));
+
+document.addEventListener('DOMContentLoaded', () => {
+  displayGlobalCostInNavBar();
+});
+
+function displayGlobalCostInNavBar() {
+  const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
+  const globalCostDisplayElement = document.createElement('span');
+  globalCostDisplayElement.textContent = `Global Cost: $${globalCost}`;
+  // Optionally, add a class or ID for styling
+  globalCostDisplayElement.className = 'global-cost-display';
+
+  // Select the globalCostContainer within the nav bar
+  const globalCostContainer = document.getElementById('globalCostContainer');
+  if (globalCostContainer) {
+    // Clear previous content (if any) and append the new global cost display
+    globalCostContainer.innerHTML = ''; // This ensures that the container is empty before adding the new content
+    globalCostContainer.appendChild(globalCostDisplayElement);
+  } else {
+    console.error('No container found for displaying global costs in the nav bar.');
+  }
+}

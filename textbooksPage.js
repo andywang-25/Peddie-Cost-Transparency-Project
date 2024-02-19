@@ -1,15 +1,15 @@
+
+
+
+
+  
 const textbookData = []; // Create an array to store book information
 const selectedCourses = new Set(); // Create a Set to store selected course names
 let english = false; 
 let totalCost = 0;
 let test = false; 
 
-
-localStorage.setItem('globalCost', '0'); // Create global variable tracking total cost of textbooks and athletics 
-
-
 fetch("./data/textbooks.csv")
-
     .then((response) => response.text())
     .then((data) => {
         Papa.parse(data, {
@@ -47,7 +47,9 @@ fetch("./data/textbooks.csv")
                   
                     textbookData.push(bookInfo);
                 });
+                // Now, you have an array containing book information for each book
                 console.log(textbookData);
+                alert("Book information is available. Check the console for details.");
                 // Call the function to generate the checklist after the data is loaded
                 generateChecklist();
             },
@@ -60,7 +62,6 @@ function generateChecklist() {
   const classesList = document.getElementById('classesList');
   const clearRectangle = document.querySelector("#column_selected_Classes .clear_rectangle");
   const costsContainer = document.querySelector("#column_Costs .clear_rectangle");
-  const globalCostsContainer = document.getElementById("globalCostContainer");
 
 
     // Create a dictionary to store checklist items by course and teacher
@@ -164,12 +165,15 @@ function generateChecklist() {
             
             // Add a click event to show associated textbooks and costs when the label is clicked
             function handleClassSelection(checkbox, item) {
-              
-              
 
               if (selectedCourses.has(item.courseName + " " + item.teachers)) { //this is called when you are removing a class 
 
+                console.log("this checkbox is currently checked: " + checkbox.checked);
+
                 checkbox.checked = false; // Uncheck the checkbox
+
+                console.log("this checkbox is not checked anymore: " + checkbox.checked);
+
                
                 //removing english class 
                 if (item.department === 'English:') {
@@ -183,17 +187,11 @@ function generateChecklist() {
                     textbookElement.textContent = `${textbook.title} (Cost: $${textbook.price})`;
                     handleCourseSelection(item.courseName + " " + item.teachers, textbook.price, false, textbook.title); // Manually call unselect handler
                     alterTotalCost(parseFloat(textbook.price),false);
-
-                    let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
-                    console.log("GLOBAL COST: " + globalCost);
                     
                     console.log("Total cost after removing course:" + totalCost)
 
                     // Update (or set) total cost text
                     totalCostElement.textContent = `Total Cost: ${totalCost.toFixed(2)}`;
-
-                    globalCostsElement.textContent = 'TEST TEST TEST ';
-                    
 
                     // After the loop, update totalCostElement text
                     totalCostElement.style.position = 'absolute';
@@ -204,8 +202,6 @@ function generateChecklist() {
                     // Append the totalCostElement to the costsContainer
                     costsContainer.appendChild(totalCostElement);
                     costsContainer.style.position = 'relative';
-
-                    globalCostsContainer.appendChild(globalCostsElement);
                 });
               }
               
@@ -249,9 +245,6 @@ function generateChecklist() {
                   priceElement.textContent = `$${textbook.price}`;
 
                   alterTotalCost(parseFloat(textbook.price),true);
-
-                  let globalCost = parseFloat(localStorage.getItem('globalCost') || '0'); // If null, default to 0
-                  console.log("GLOBAL COST: " + globalCost);
             
                   console.log("total Cost:" + totalCost);
 
@@ -319,6 +312,18 @@ function generateChecklist() {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   function clearRectangleContains(text) {
     let children = clearRectangle.children;
     for (let i = 0; i < children.length; i++) {
@@ -335,7 +340,6 @@ function generateChecklist() {
     for (let i = 0; i < children.length; i++) {
       if (extractCourseName(children[i].textContent) === courseName) {
         clearRectangle.removeChild(children[i]);
-        
         return;
       }
     }
@@ -344,11 +348,12 @@ function generateChecklist() {
 
   function removeCost(price,title) {
     const costElements = costsContainer.querySelectorAll("div");
+    console.log("name of removing title: " + title)
+    console.log("cost elements:" + price)
     let flag = true; 
     costElements.forEach((element) => {
       if (element.textContent.includes(price) && element.textContent.includes(title) && flag) {
         costsContainer.removeChild(element);
-      
         flag = false; 
         return;
       }
@@ -365,6 +370,7 @@ function generateChecklist() {
   function handleCourseSelection(courseName, price, isChecked, title) {
         removeSelectedClass(courseName);
         console.log("here is the price we are passing: " + price)
+
         console.log("here is the title we are passing: " + title)
         removeCost(price, title);
         selectedCourses.delete(courseName);
@@ -384,38 +390,11 @@ function filterClassesByDepartment(department) {
 function alterTotalCost(textbookPrice,isAdd){
   if(isAdd) {
     totalCost = totalCost + textbookPrice; 
-    alterGlobalCost(textbookPrice, true);
   }
   else{
     totalCost = totalCost - textbookPrice;
-    alterGlobalCost(textbookPrice, false);
   }
   console.log("Total Cost:" + totalCost)
 }
-
-function alterGlobalCost(addedCost,isAdd) {
-  var currentNumber = Number(localStorage.getItem('globalCost'));
-
-  if (isAdd) {
-    var updatedNumber = currentNumber + addedCost;
-  }
-  else 
-    var updatedNumber = currentNumber - addedCost;
-
-  localStorage.setItem('globalCost', updatedNumber.toString());
 }
-}
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
+        

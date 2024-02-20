@@ -11,7 +11,6 @@ fetch('http://localhost:3000/data')
 
 
   // Use it as needed
-
   function updateOverallTotalCost() {
     let overallTotal = 0; // Initialize the sum of all total costs
     const rows = tbody.getElementsByTagName('tr');
@@ -26,11 +25,38 @@ fetch('http://localhost:3000/data')
   
     // Display the overall total cost
     const totalCostDisplay = document.getElementById('overallTotalCost') || document.createElement('div');
-    totalCostDisplay.id = 'overallTotalCost'; // Ensure the div has an ID if it's newly created
+    totalCostDisplay.id = 'overallTotalCost';
     totalCostDisplay.textContent = `Overall Total Cost: ${overallTotal.toFixed(2)}`;
-    totalCostsContainer.appendChild(totalCostDisplay); // Append or update the displayed overall total
+    totalCostsContainer.appendChild(totalCostDisplay);
+
+    // Update globalCost in localStorage
+    updateGlobalCost(overallTotal);
+  }
+
+  // New function to update the globalCost in localStorage
+  function updateGlobalCost(overallTotal) {
+    let globalCost = parseFloat(localStorage.getItem('globalCost') || '0');
+    globalCost += overallTotal; // Add the overall total cost of athletics to the global cost
+    localStorage.setItem('globalCost', globalCost.toFixed(2)); // Update localStorage
+    displayGlobalCostInNavBar(); // Update the display of global cost in the navigation bar, if applicable
   }
   
+  // Function to display global cost in the navigation bar
+function displayGlobalCostInNavBar() {
+  const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
+  const globalCostDisplayElement = document.getElementById('globalCostDisplay') || document.createElement('span');
+  globalCostDisplayElement.id = 'globalCostDisplay';
+  globalCostDisplayElement.textContent = `Global Cost: $${globalCost}`;
+  // Append or update the displayed global cost in the nav bar
+  const globalCostContainer = document.getElementById('globalCostContainer');
+  if (globalCostContainer) {
+    globalCostContainer.innerHTML = '';
+    globalCostContainer.appendChild(globalCostDisplayElement);
+  } else {
+    console.error('No container found for displaying global costs in the nav bar.');
+  }
+}
+
 
   // Deduplicate data based on the 'Sport' property
   const seen = new Set();
@@ -144,20 +170,3 @@ document.addEventListener('DOMContentLoaded', () => {
   displayGlobalCostInNavBar();
 });
 
-function displayGlobalCostInNavBar() {
-  const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
-  const globalCostDisplayElement = document.createElement('span');
-  globalCostDisplayElement.textContent = `Global Cost: $${globalCost}`;
-  // Optionally, add a class or ID for styling
-  globalCostDisplayElement.className = 'global-cost-display';
-
-  // Select the globalCostContainer within the nav bar
-  const globalCostContainer = document.getElementById('globalCostContainer');
-  if (globalCostContainer) {
-    // Clear previous content (if any) and append the new global cost display
-    globalCostContainer.innerHTML = ''; // This ensures that the container is empty before adding the new content
-    globalCostContainer.appendChild(globalCostDisplayElement);
-  } else {
-    console.error('No container found for displaying global costs in the nav bar.');
-  }
-}

@@ -3,8 +3,52 @@ const selectedCourses = new Set(); // Create a Set to store selected course name
 let english = false; 
 let totalCost = 0;
 let test = false; 
-alert("fdsfsd");
 
+fetch("./data/textbooks.csv")
+    .then((response) => response.text())
+    .then((data) => {
+        Papa.parse(data, {
+            delimiter: ",",
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            ltrim: true,
+            complete: function (results) {
+                const textbookData1 = results.data;
+                // Loop through each row of data and extract the desired information for each book
+                textbookData1.forEach((textbook) => {
+                  
+                    const bookInfo = {
+                      department: textbook['Department'],
+                      courseName: textbook['Course Name'],
+                      title: textbook['Title'],
+                      buyLink: textbook['buy link'],
+                      price: textbook['book price'],
+                      teachers: textbook['Teacher'],
+                    };
+
+                    if(bookInfo.courseName.indexOf("[") > 0) {
+                      let indexOne = bookInfo.courseName.indexOf("[");
+                      let indexTwo = bookInfo.courseName.indexOf("]");
+                      bookInfo.courseName = bookInfo.courseName.substring(0, indexOne) + bookInfo.courseName.substring(indexTwo + 1); 
+                      console.log(bookInfo.courseName)
+                    }
+
+                    bookInfo.department = bookInfo.department + ":";
+
+                    if (bookInfo.price === null) {
+                      bookInfo.price = "0";
+                    }
+                  
+                    textbookData.push(bookInfo);
+                });
+                // Now, you have an array containing book information for each book
+                console.log(textbookData);
+                // Call the function to generate the checklist after the data is loaded
+                generateChecklist();
+            },
+        });
+    });
    
 // Function to generate the checklist items
 function generateChecklist() {
@@ -108,12 +152,11 @@ function generateChecklist() {
           });
   
           // Event listener for the checkbox
-          checkbox.addEventListener('change', function() {
-            localStorage.setItem(checkbox.id, this.checked); // Save state as 'true' or 'false'            
-            handleClassSelection(checkbox, item);
+          checkbox.addEventListener('change', () => {
+              handleClassSelection(checkbox, item);
           });
 
-      
+
           
             
             // Add a click event to show associated textbooks and costs when the label is clicked
@@ -327,123 +370,63 @@ function generateChecklist() {
         return match ? match[1] : text;
       }
 
-    // Initialize globalCost from localStorage or default to 0
-  let globalCost = parseFloat(localStorage.getItem('globalCost') || '0');
+  // Initialize globalCost from localStorage or default to 0
+let globalCost = parseFloat(localStorage.getItem('globalCost') || '0');
 
-  // Update the globalCost whenever totalCost changes
-  function updateGlobalCost() {
-      localStorage.setItem('globalCost', totalCost.toFixed(2));
-      globalCost = totalCost;
-  }
-
-  // Function to update total cost and global cost display
-  function updateCostDisplay() {
-      // Update total cost display
-      const totalCostElement = document.getElementById('totalCostElement');
-      totalCostElement.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
-
-      // Update global cost display
-      const globalCostContainer = document.getElementById('globalCostContainer');
-      globalCostContainer.textContent = `Global Cost: $${globalCost.toFixed(2)}`;
-  }
-
-  // Function to handle course selection
-  function handleCourseSelection(courseName, price, isChecked, title) {
-      removeSelectedClass(courseName);
-      removeCost(price, title);
-      selectedCourses.delete(courseName);
-      updateGlobalCost();
-      updateCostDisplay();
-  }
-
-
-    // 4. Filter Classes by Department
-  function filterClassesByDepartment(department) {
-    const allClassItems = document.querySelectorAll('#classesList li');
-
-    allClassItems.forEach(item => {
-        if (department === '' || item.textContent.indexOf(department) == 0) {
-            item.style.display = ''; // Show item
-        } else {
-            item.style.display = 'none'; // Hide item
-        }
-    });
-  }
-  function alterTotalCost(textbookPrice, isAdd) {
-    if (isAdd) {
-      totalCost += textbookPrice;
-    } else {
-      totalCost -= textbookPrice;
-    }
-    // Update globalCost here to reflect the change in totalCost
-    globalCost = parseFloat(localStorage.getItem('globalCost') || '0') + (isAdd ? textbookPrice : -textbookPrice);
-    localStorage.setItem('globalCost', globalCost.toFixed(2)); // Save updated globalCost to localStorage
-
-    console.log("Total Cost:" + totalCost);
-    console.log("Global Cost:" + globalCost); // Debugging
-
-    updateGlobalCostDisplay(); // Make sure this function updates the UI to reflect the new globalCost
-}
-restoreCheckboxStates();
+// Update the globalCost whenever totalCost changes
+function updateGlobalCost() {
+    localStorage.setItem('globalCost', totalCost.toFixed(2));
+    globalCost = totalCost;
 }
 
-        
-document.addEventListener('DOMContentLoaded', () => {
-  fetch("./data/textbooks.csv")
-      .then((response) => response.text())
-      .then((data) => {
-          Papa.parse(data, {
-            delimiter: ",",
-            header: true,
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            ltrim: true,
-            complete: function (results) {
-                const textbookData1 = results.data;
-                // Loop through each row of data and extract the desired information for each book
-                textbookData1.forEach((textbook) => {
-                  
-                    const bookInfo = {
-                      department: textbook['Department'],
-                      courseName: textbook['Course Name'],
-                      title: textbook['Title'],
-                      buyLink: textbook['buy link'],
-                      price: textbook['book price'],
-                      teachers: textbook['Teacher'],
-                    };
+// Function to update total cost and global cost display
+function updateCostDisplay() {
+    // Update total cost display
+    const totalCostElement = document.getElementById('totalCostElement');
+    totalCostElement.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
 
-                    if(bookInfo.courseName.indexOf("[") > 0) {
-                      let indexOne = bookInfo.courseName.indexOf("[");
-                      let indexTwo = bookInfo.courseName.indexOf("]");
-                      bookInfo.courseName = bookInfo.courseName.substring(0, indexOne) + bookInfo.courseName.substring(indexTwo + 1); 
-                      console.log(bookInfo.courseName)
-                    }
+    // Update global cost display
+    const globalCostContainer = document.getElementById('globalCostContainer');
+    globalCostContainer.textContent = `Global Cost: $${globalCost.toFixed(2)}`;
+}
 
-                    bookInfo.department = bookInfo.department + ":";
+// Function to handle course selection
+function handleCourseSelection(courseName, price, isChecked, title) {
+    removeSelectedClass(courseName);
+    removeCost(price, title);
+    selectedCourses.delete(courseName);
+    updateGlobalCost();
+    updateCostDisplay();
+}
 
-                    if (bookInfo.price === null) {
-                      bookInfo.price = "0";
-                    }
-                  
-                    textbookData.push(bookInfo);
-                });
-                // Now, you have an array containing book information for each book
-                console.log(textbookData);
-                // Call the function to generate the checklist after the data is loaded
-                generateChecklist();
-            },
-        });
-    });
-    updateGlobalCostDisplay();
+
+   // 4. Filter Classes by Department
+function filterClassesByDepartment(department) {
+  const allClassItems = document.querySelectorAll('#classesList li');
+
+  allClassItems.forEach(item => {
+      if (department === '' || item.textContent.indexOf(department) == 0) {
+          item.style.display = ''; // Show item
+      } else {
+          item.style.display = 'none'; // Hide item
+      }
   });
-
-function restoreCheckboxStates() {
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-checkboxes.forEach(checkbox => {
-  const isChecked = localStorage.getItem(checkbox.id) === 'true';
-  checkbox.checked = isChecked;
-
-  // If your application logic requires, trigger change event or call relevant functions
-  // to reflect the restored state of checkboxes, e.g., update displays, totals, etc.
-});
 }
+function alterTotalCost(textbookPrice, isAdd) {
+  if (isAdd) {
+    totalCost += textbookPrice;
+  } else {
+    totalCost -= textbookPrice;
+  }
+  // Update globalCost here to reflect the change in totalCost
+  globalCost = parseFloat(localStorage.getItem('globalCost') || '0') + (isAdd ? textbookPrice : -textbookPrice);
+  localStorage.setItem('globalCost', globalCost.toFixed(2)); // Save updated globalCost to localStorage
+
+  console.log("Total Cost:" + totalCost);
+  console.log("Global Cost:" + globalCost); // Debugging
+
+  updateGlobalCostDisplay(); // Make sure this function updates the UI to reflect the new globalCost
+}
+
+}
+        

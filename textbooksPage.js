@@ -329,13 +329,6 @@ function generateChecklist() {
      }
      return false;
    }
-
-        // Update the globalCostContainer with the current global cost
-  function updateGlobalCostDisplay() {
-    const globalCostContainer = document.getElementById('globalCostContainer');
-    const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
-    globalCostContainer.textContent = `Global Cost: $${globalCost}`;
-  }
    
 
   function removeSelectedClass(courseName) {
@@ -385,9 +378,13 @@ function updateCostDisplay() {
     const totalCostElement = document.getElementById('totalCostElement');
     totalCostElement.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
 
-    // Update global cost display
-    const globalCostContainer = document.getElementById('globalCostContainer');
-    globalCostContainer.textContent = `Global Cost: $${globalCost.toFixed(2)}`;
+}
+
+// Update the globalCostContainer with the current global cost
+function updateGlobalCostDisplay() {
+  const globalCostContainer = document.getElementById('globalCostContainer');
+  const globalCost = parseFloat(localStorage.getItem('globalCost') || '0').toFixed(2);
+  //globalCostContainer.textContent = `Global Cost: $${globalCost}`;
 }
 
 // Function to handle course selection
